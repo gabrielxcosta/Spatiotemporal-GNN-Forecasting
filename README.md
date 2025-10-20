@@ -15,50 +15,27 @@ The study systematically compares architectures that combine **attention-based**
 
 ## Project Structure
 
-│
-
-├── main_experiments.py        # Main script for multiple experiments
-
-├── requirements.txt                 # Python dependencies
-
-│
-
-├── 📂 models/                       # GNN model implementations
-
-│   ├── DCRNN.py
-
-│   ├── STGCN.py
-
-│   ├── GraphWaveNet.py
-
-│   └── GMAN.py
-
-│
-
-├── 📂 utils/                        # Auxiliary scripts
-
-│   ├── data_utils.py                # Dataset loading, normalization, splitting
-
-│   ├── gpu_utils.py                 # CUDA initialization and preloading
-
-│   ├── training_utils.py            # Training loop, early stopping, scheduler
-
-│   ├── plotting_utils.py            # Visualization and result plots
-
-│   ├── metrics_utils.py             # RMSE, MAE, R² calculations
-
-│   └── time_utils.py                # Logging and execution timing
-
-│
-
-├── 📂 results/                      # Generated plots and metrics
-
-│   ├── EnglandCovid_lags16/
-
-│   ├── EnglandCovid_lags20/
-
-│   └── comparativo_lags_rmse.png
-
-│
-
+│  
+├── main_experiments.py  
+├── requirements.txt  
+│  
+├── 📂 models/  
+│   ├── DCRNN.py  
+│   ├── STGCN.py  
+│   ├── GraphWaveNet.py  
+│   └── GMAN.py  
+│  
+├── 📂 utils/  
+│   ├── data_utils.py  
+│   ├── gpu_utils.py  
+│   ├── training_utils.py  
+│   ├── plotting_utils.py  
+│   ├── metrics_utils.py  
+│   └── time_utils.py  
+│  
+├── 📂 results/  
+│   ├── EnglandCovid_lags16/  
+│   ├── EnglandCovid_lags20/  
+│   └── comparativo_lags_rmse.png  
+│  
 └── 📄 README.md
