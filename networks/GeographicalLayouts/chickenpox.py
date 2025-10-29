@@ -1,0 +1,22 @@
+base_node_attrs = {
+    "0":  {"label": "0",  "county": "Bács-Kiskun", "Latitude": 46.92, "Longitude": 19.33},
+    "1":  {"label": "1",  "county": "Baranya", "Latitude": 46.07, "Longitude": 18.23},
+    "2":  {"label": "2",  "county": "Békés", "Latitude": 46.68, "Longitude": 21.13},
+    "3":  {"label": "3",  "county": "Borsod-Abaúj-Zemplén", "Latitude": 48.10, "Longitude": 20.78},
+    "4":  {"label": "4",  "county": "Budapest", "Latitude": 47.50, "Longitude": 19.04},
+    "5":  {"label": "5",  "county": "Csongrád-Csanád", "Latitude": 46.25, "Longitude": 20.15},
+    "6":  {"label": "6",  "county": "Fejér", "Latitude": 47.20, "Longitude": 18.40},
+    "7":  {"label": "7",  "county": "Győr-Moson-Sopron", "Latitude": 47.68, "Longitude": 17.63},
+    "8":  {"label": "8",  "county": "Hajdú-Bihar", "Latitude": 47.53, "Longitude": 21.62},
+    "9":  {"label": "9",  "county": "Heves", "Latitude": 47.90, "Longitude": 20.33},
+    "10": {"label": "10", "county": "Jász-Nagykun-Szolnok", "Latitude": 47.18, "Longitude": 20.18},
+    "11": {"label": "11", "county": "Komárom-Esztergom", "Latitude": 47.60, "Longitude": 18.33},
+    "12": {"label": "12", "county": "Nógrád", "Latitude": 47.90, "Longitude": 19.50},
+    "13": {"label": "13", "county": "Pest", "Latitude": 47.50, "Longitude": 19.25},
+    "14": {"label": "14", "county": "Somogy", "Latitude": 46.35, "Longitude": 17.75},
+    "15": {"label": "15", "county": "Szabolcs-Szatmár-Bereg", "Latitude": 48.00, "Longitude": 22.00},
+    "16": {"label": "16", "county": "Tolna", "Latitude": 46.42, "Longitude": 18.78},
+    "17": {"label": "17", "county": "Vas", "Latitude": 47.23, "Longitude": 16.63},
+    "18": {"label": "18", "county": "Veszprém", "Latitude": 47.10, "Longitude": 17.90},
+    "19": {"label": "19", "county": "Zala", "Latitude": 46.85, "Longitude": 16.83}
+}

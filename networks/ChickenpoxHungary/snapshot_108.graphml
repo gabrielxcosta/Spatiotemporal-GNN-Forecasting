@@ -1,0 +1,531 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d18" for="edge" attr.name="weight" attr.type="double" />
+  <key id="d17" for="node" attr.name="feature_mean" attr.type="double" />
+  <key id="d16" for="node" attr.name="b" attr.type="long" />
+  <key id="d15" for="node" attr.name="g" attr.type="long" />
+  <key id="d14" for="node" attr.name="r" attr.type="long" />
+  <key id="d13" for="node" attr.name="size" attr.type="float" />
+  <key id="d12" for="node" attr.name="degree_centrality" attr.type="double" />
+  <key id="d11" for="node" attr.name="betweenness_centrality" attr.type="double" />
+  <key id="d10" for="node" attr.name="closeness_centrality" attr.type="double" />
+  <key id="d9" for="node" attr.name="y" attr.type="double" />
+  <key id="d8" for="node" attr.name="x" attr.type="double" />
+  <key id="d7" for="node" attr.name="Longitude" attr.type="double" />
+  <key id="d6" for="node" attr.name="Latitude" attr.type="double" />
+  <key id="d5" for="node" attr.name="county" attr.type="string" />
+  <key id="d4" for="node" attr.name="label" attr.type="string" />
+  <key id="d3" for="graph" attr.name="density" attr.type="double" />
+  <key id="d2" for="graph" attr.name="avg_degree" attr.type="double" />
+  <key id="d1" for="graph" attr.name="num_edges" attr.type="long" />
+  <key id="d0" for="graph" attr.name="num_nodes" attr.type="long" />
+  <graph edgedefault="undirected">
+    <node id="0">
+      <data key="d4">0</data>
+      <data key="d5">Bács-Kiskun</data>
+      <data key="d6">46.92</data>
+      <data key="d7">19.33</data>
+      <data key="d8">19.33</data>
+      <data key="d9">46.92</data>
+      <data key="d10">0.5277777777777778</data>
+      <data key="d11">0.21932171142697457</data>
+      <data key="d12">0.42105263157894735</data>
+      <data key="d13">2.3788265335728616</data>
+      <data key="d14">242</data>
+      <data key="d15">74</data>
+      <data key="d16">53</data>
+      <data key="d17">0.49199479818344116</data>
+    </node>
+    <node id="1">
+      <data key="d4">1</data>
+      <data key="d5">Baranya</data>
+      <data key="d6">46.07</data>
+      <data key="d7">18.23</data>
+      <data key="d8">18.23</data>
+      <data key="d9">46.07</data>
+      <data key="d10">0.41304347826086957</data>
+      <data key="d11">0.017330427856743644</data>
+      <data key="d12">0.2631578947368421</data>
+      <data key="d13">1.5694433749380425</data>
+      <data key="d14">254</data>
+      <data key="d15">237</data>
+      <data key="d16">229</data>
+      <data key="d17">0.5060276985168457</data>
+    </node>
+    <node id="2">
+      <data key="d4">2</data>
+      <data key="d5">Békés</data>
+      <data key="d6">46.68</data>
+      <data key="d7">21.13</data>
+      <data key="d8">21.13</data>
+      <data key="d9">46.68</data>
+      <data key="d10">0.3584905660377358</data>
+      <data key="d11">0.004873294346978557</data>
+      <data key="d12">0.2631578947368421</data>
+      <data key="d13">1.5195273890130179</data>
+      <data key="d14">254</data>
+      <data key="d15">243</data>
+      <data key="d16">237</data>
+      <data key="d17">0.48361682891845703</data>
+    </node>
+    <node id="3">
+      <data key="d4">3</data>
+      <data key="d5">Borsod-Abaúj-Zemplén</data>
+      <data key="d6">48.1</data>
+      <data key="d7">20.78</data>
+      <data key="d8">20.78</data>
+      <data key="d9">48.1</data>
+      <data key="d10">0.38</data>
+      <data key="d11">0.07747145641882484</data>
+      <data key="d12">0.3684210526315789</data>
+      <data key="d13">1.8104296927669474</data>
+      <data key="d14">252</data>
+      <data key="d15">200</data>
+      <data key="d16">179</data>
+      <data key="d17">0.48268428444862366</data>
+    </node>
+    <node id="4">
+      <data key="d4">4</data>
+      <data key="d5">Budapest</data>
+      <data key="d6">47.5</data>
+      <data key="d7">19.04</data>
+      <data key="d8">19.04</data>
+      <data key="d9">47.5</data>
+      <data key="d10">0.36538461538461536</data>
+      <data key="d11">0.0</data>
+      <data key="d12">0.15789473684210525</data>
+      <data key="d13">1.5</data>
+      <data key="d14">255</data>
+      <data key="d15">245</data>
+      <data key="d16">240</data>
+      <data key="d17">0.4915052354335785</data>
+    </node>
+    <node id="5">
+      <data key="d4">5</data>
+      <data key="d5">Csongrád-Csanád</data>
+      <data key="d6">46.25</data>
+      <data key="d7">20.15</data>
+      <data key="d8">20.15</data>
+      <data key="d9">46.25</data>
+      <data key="d10">0.40425531914893614</data>
+      <data key="d11">0.017985620617199563</data>
+      <data key="d12">0.2631578947368421</data>
+      <data key="d13">1.5720687455807718</data>
+      <data key="d14">254</data>
+      <data key="d15">237</data>
+      <data key="d16">228</data>
+      <data key="d17">0.5057259798049927</data>
+    </node>
+    <node id="6">
+      <data key="d4">6</data>
+      <data key="d5">Fejér</data>
+      <data key="d6">47.2</data>
+      <data key="d7">18.4</data>
+      <data key="d8">18.4</data>
+      <data key="d9">47.2</data>
+      <data key="d10">0.5135135135135135</data>
+      <data key="d11">0.20106589317115628</data>
+      <data key="d12">0.42105263157894735</data>
+      <data key="d13">2.3056751005892697</data>
+      <data key="d14">247</data>
+      <data key="d15">91</data>
+      <data key="d16">65</data>
+      <data key="d17">0.4585138261318207</data>
+    </node>
+    <node id="7">
+      <data key="d4">7</data>
+      <data key="d5">Győr-Moson-Sopron</data>
+      <data key="d6">47.68</data>
+      <data key="d7">17.63</data>
+      <data key="d8">17.63</data>
+      <data key="d9">47.68</data>
+      <data key="d10">0.3584905660377358</data>
+      <data key="d11">0.01824004455583403</data>
+      <data key="d12">0.2631578947368421</data>
+      <data key="d13">1.5730882274487241</data>
+      <data key="d14">254</data>
+      <data key="d15">237</data>
+      <data key="d16">228</data>
+      <data key="d17">0.5085356831550598</data>
+    </node>
+    <node id="8">
+      <data key="d4">8</data>
+      <data key="d5">Hajdú-Bihar</data>
+      <data key="d6">47.53</data>
+      <data key="d7">21.62</data>
+      <data key="d8">21.62</data>
+      <data key="d9">47.53</data>
+      <data key="d10">0.37254901960784315</data>
+      <data key="d11">0.041436925647451966</data>
+      <data key="d12">0.3157894736842105</data>
+      <data key="d13">1.6660385991506894</data>
+      <data key="d14">254</data>
+      <data key="d15">226</data>
+      <data key="d16">213</data>
+      <data key="d17">0.4850228428840637</data>
+    </node>
+    <node id="9">
+      <data key="d4">9</data>
+      <data key="d5">Heves</data>
+      <data key="d6">47.9</data>
+      <data key="d7">20.33</data>
+      <data key="d8">20.33</data>
+      <data key="d9">47.9</data>
+      <data key="d10">0.4418604651162791</data>
+      <data key="d11">0.030589293747188478</data>
+      <data key="d12">0.3157894736842105</data>
+      <data key="d13">1.6225719187278662</data>
+      <data key="d14">254</data>
+      <data key="d15">231</data>
+      <data key="d16">221</data>
+      <data key="d17">0.49342110753059387</data>
+    </node>
+    <node id="10">
+      <data key="d4">10</data>
+      <data key="d5">Jász-Nagykun-Szolnok</data>
+      <data key="d6">47.18</data>
+      <data key="d7">20.18</data>
+      <data key="d8">20.18</data>
+      <data key="d9">47.18</data>
+      <data key="d10">0.5</data>
+      <data key="d11">0.26732701995859887</data>
+      <data key="d12">0.47368421052631576</data>
+      <data key="d13">2.5711847757890687</data>
+      <data key="d14">213</data>
+      <data key="d15">34</data>
+      <data key="d16">33</data>
+      <data key="d17">0.5051980018615723</data>
+    </node>
+    <node id="11">
+      <data key="d4">11</data>
+      <data key="d5">Komárom-Esztergom</data>
+      <data key="d6">47.6</data>
+      <data key="d7">18.33</data>
+      <data key="d8">18.33</data>
+      <data key="d9">47.6</data>
+      <data key="d10">0.4634146341463415</data>
+      <data key="d11">0.13084245189508348</data>
+      <data key="d12">0.3157894736842105</data>
+      <data key="d13">2.0242883510938516</data>
+      <data key="d14">252</data>
+      <data key="d15">154</data>
+      <data key="d16">123</data>
+      <data key="d17">0.48151928186416626</data>
+    </node>
+    <node id="12">
+      <data key="d4">12</data>
+      <data key="d5">Nógrád</data>
+      <data key="d6">47.9</data>
+      <data key="d7">19.5</data>
+      <data key="d8">19.5</data>
+      <data key="d9">47.9</data>
+      <data key="d10">0.41304347826086957</data>
+      <data key="d11">0.02571599940020992</data>
+      <data key="d12">0.2631578947368421</data>
+      <data key="d13">1.6030445297148483</data>
+      <data key="d14">254</data>
+      <data key="d15">233</data>
+      <data key="d16">224</data>
+      <data key="d17">0.5066969990730286</data>
+    </node>
+    <node id="13">
+      <data key="d4">13</data>
+      <data key="d5">Pest</data>
+      <data key="d6">47.5</data>
+      <data key="d7">19.25</data>
+      <data key="d8">19.25</data>
+      <data key="d9">47.5</data>
+      <data key="d10">0.5588235294117647</data>
+      <data key="d11">0.37434300592195324</data>
+      <data key="d12">0.47368421052631576</data>
+      <data key="d13">2.9999999959929795</data>
+      <data key="d14">103</data>
+      <data key="d15">0</data>
+      <data key="d16">12</data>
+      <data key="d17">0.5104892253875732</data>
+    </node>
+    <node id="14">
+      <data key="d4">14</data>
+      <data key="d5">Somogy</data>
+      <data key="d6">46.35</data>
+      <data key="d7">17.75</data>
+      <data key="d8">17.75</data>
+      <data key="d9">46.35</data>
+      <data key="d10">0.40425531914893614</data>
+      <data key="d11">0.07782120413699362</data>
+      <data key="d12">0.3684210526315789</data>
+      <data key="d13">1.8118311389474622</data>
+      <data key="d14">252</data>
+      <data key="d15">199</data>
+      <data key="d16">177</data>
+      <data key="d17">0.4732772409915924</data>
+    </node>
+    <node id="15">
+      <data key="d4">15</data>
+      <data key="d5">Szabolcs-Szatmár-Bereg</data>
+      <data key="d6">48.0</data>
+      <data key="d7">22.0</data>
+      <data key="d8">22.0</data>
+      <data key="d9">48.0</data>
+      <data key="d10">0.2878787878787879</data>
+      <data key="d11">0.0</data>
+      <data key="d12">0.21052631578947367</data>
+      <data key="d13">1.5</data>
+      <data key="d14">255</data>
+      <data key="d15">245</data>
+      <data key="d16">240</data>
+      <data key="d17">0.48659801483154297</data>
+    </node>
+    <node id="16">
+      <data key="d4">16</data>
+      <data key="d5">Tolna</data>
+      <data key="d6">46.42</data>
+      <data key="d7">18.78</data>
+      <data key="d8">18.78</data>
+      <data key="d9">46.42</data>
+      <data key="d10">0.4318181818181818</data>
+      <data key="d11">0.020449336238809922</data>
+      <data key="d12">0.3157894736842105</data>
+      <data key="d13">1.581940903906374</data>
+      <data key="d14">254</data>
+      <data key="d15">236</data>
+      <data key="d16">227</data>
+      <data key="d17">0.45083653926849365</data>
+    </node>
+    <node id="17">
+      <data key="d4">17</data>
+      <data key="d5">Vas</data>
+      <data key="d6">47.23</data>
+      <data key="d7">16.63</data>
+      <data key="d8">16.63</data>
+      <data key="d9">47.23</data>
+      <data key="d10">0.3064516129032258</data>
+      <data key="d11">0.0029239766081871343</data>
+      <data key="d12">0.2631578947368421</data>
+      <data key="d13">1.5117164334078108</data>
+      <data key="d14">254</data>
+      <data key="d15">244</data>
+      <data key="d16">239</data>
+      <data key="d17">0.5067719221115112</data>
+    </node>
+    <node id="18">
+      <data key="d4">18</data>
+      <data key="d5">Veszprém</data>
+      <data key="d6">47.1</data>
+      <data key="d7">17.9</data>
+      <data key="d8">17.9</data>
+      <data key="d9">47.1</data>
+      <data key="d10">0.41304347826086957</data>
+      <data key="d11">0.13697968697968696</data>
+      <data key="d12">0.42105263157894735</data>
+      <data key="d13">2.0488803762063297</data>
+      <data key="d14">252</data>
+      <data key="d15">149</data>
+      <data key="d16">117</data>
+      <data key="d17">0.5020814538002014</data>
+    </node>
+    <node id="19">
+      <data key="d4">19</data>
+      <data key="d5">Zala</data>
+      <data key="d6">46.85</data>
+      <data key="d7">16.83</data>
+      <data key="d8">16.83</data>
+      <data key="d9">46.85</data>
+      <data key="d10">0.31666666666666665</data>
+      <data key="d11">0.007797270955165692</data>
+      <data key="d12">0.2631578947368421</data>
+      <data key="d13">1.5312438224208287</data>
+      <data key="d14">254</data>
+      <data key="d15">241</data>
+      <data key="d16">235</data>
+      <data key="d17">0.4565298557281494</data>
+    </node>
+    <edge source="0" target="10">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="0" target="6">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="0" target="13">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="0" target="1">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="0" target="0">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="0" target="5">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="0" target="16">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="1" target="16">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="1" target="1">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="1" target="14">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="2" target="10">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="2" target="8">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="2" target="2">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="2" target="5">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="3" target="8">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="3" target="15">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="3" target="12">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="3" target="9">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="3" target="10">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="3" target="3">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="4" target="4">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="4" target="13">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="5" target="10">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="5" target="5">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="6" target="16">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="6" target="6">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="6" target="14">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="6" target="13">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="6" target="11">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="6" target="18">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="7" target="7">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="7" target="17">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="7" target="11">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="7" target="18">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="8" target="15">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="8" target="8">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="8" target="10">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="9" target="9">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="9" target="13">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="9" target="12">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="9" target="10">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="10" target="10">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="10" target="13">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="11" target="11">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="11" target="13">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="11" target="18">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="12" target="13">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="12" target="12">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="13" target="13">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="14" target="18">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="14" target="19">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="14" target="14">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="14" target="16">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="15" target="15">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="16" target="16">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="17" target="19">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="17" target="17">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="17" target="18">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="18" target="18">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="18" target="19">
+      <data key="d18">1.0</data>
+    </edge>
+    <edge source="19" target="19">
+      <data key="d18">1.0</data>
+    </edge>
+    <data key="d0">20</data>
+    <data key="d1">61</data>
+    <data key="d2">6.1</data>
+    <data key="d3">0.32105263157894737</data>
+  </graph>
+</graphml>

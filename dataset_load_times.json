@@ -1,0 +1,191 @@
+{
+  "ChickenpoxDatasetLoader": {
+    "params": {
+      "lags": 4
+    },
+    "status": "success",
+    "timings": {
+      "lookup": 7.906928658485413e-07,
+      "loader_init": 0.3702433928847313,
+      "get_dataset": 0.21742016775533557
+    },
+    "meta": {
+      "snapshots": 517,
+      "num_nodes": 20,
+      "num_edges": 102,
+      "num_features": 4,
+      "signal_type": "Unknown",
+      "temporal_resolution": "Weekly"
+    }
+  },
+  "PedalMeDatasetLoader": {
+    "params": {
+      "lags": 4
+    },
+    "status": "success",
+    "timings": {
+      "lookup": 1.5101395547389984e-06,
+      "loader_init": 0.19907389907166362,
+      "get_dataset": 0.0036924700252711773
+    },
+    "meta": {
+      "snapshots": 31,
+      "num_nodes": 15,
+      "num_edges": 225,
+      "num_features": 4,
+      "signal_type": "Unknown",
+      "temporal_resolution": "Hourly (~30 min)"
+    }
+  },
+  "WikiMathsDatasetLoader": {
+    "params": {
+      "lags": 8
+    },
+    "status": "success",
+    "timings": {
+      "lookup": 1.3620592653751373e-06,
+      "loader_init": 5.60068034613505,
+      "get_dataset": 0.11225024098530412
+    },
+    "meta": {
+      "snapshots": 723,
+      "num_nodes": 1068,
+      "num_edges": 27079,
+      "num_features": 8,
+      "signal_type": "Unknown",
+      "temporal_resolution": "Weekly"
+    }
+  },
+  "WindmillOutputLargeDatasetLoader": {
+    "params": {
+      "lags": 8
+    },
+    "status": "failed",
+    "timings": {
+      "lookup": 2.064276486635208e-06
+    },
+    "meta": {},
+    "error": "Loader init error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'graphmining.ai'. (_ssl.c:1007)>"
+  },
+  "WindmillOutputMediumDatasetLoader": {
+    "params": {
+      "lags": 8
+    },
+    "status": "failed",
+    "timings": {
+      "lookup": 1.3182871043682098e-06
+    },
+    "meta": {},
+    "error": "Loader init error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'graphmining.ai'. (_ssl.c:1007)>"
+  },
+  "WindmillOutputSmallDatasetLoader": {
+    "params": {
+      "lags": 8
+    },
+    "status": "failed",
+    "timings": {
+      "lookup": 1.157168298959732e-06
+    },
+    "meta": {},
+    "error": "Loader init error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'graphmining.ai'. (_ssl.c:1007)>"
+  },
+  "METRLADatasetLoader": {
+    "params": {
+      "num_timesteps_in": 12,
+      "num_timesteps_out": 12
+    },
+    "status": "failed",
+    "timings": {
+      "lookup": 1.948326826095581e-06
+    },
+    "meta": {},
+    "error": "Loader init error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'graphmining.ai'. (_ssl.c:1007)>"
+  },
+  "PemsBayDatasetLoader": {
+    "params": {
+      "num_timesteps_in": 12,
+      "num_timesteps_out": 12
+    },
+    "status": "failed",
+    "timings": {
+      "lookup": 1.062639057636261e-06
+    },
+    "meta": {},
+    "error": "Loader init error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'graphmining.ai'. (_ssl.c:1007)>"
+  },
+  "PemsAllLADatasetLoader": {
+    "params": {
+      "lags": 12
+    },
+    "status": "failed",
+    "timings": {},
+    "meta": {},
+    "error": "Loader class not found: module 'torch_geometric_temporal.dataset' has no attribute 'PemsAllLADatasetLoader'"
+  },
+  "PemsDatasetLoader": {
+    "params": {
+      "lags": 12
+    },
+    "status": "failed",
+    "timings": {},
+    "meta": {},
+    "error": "Loader class not found: module 'torch_geometric_temporal.dataset' has no attribute 'PemsDatasetLoader'"
+  },
+  "EnglandCovidDatasetLoader": {
+    "params": {
+      "lags": 8
+    },
+    "status": "success",
+    "timings": {
+      "lookup": 6.989575922489166e-07,
+      "loader_init": 1.0745542109943926,
+      "get_dataset": 0.017447147984057665
+    },
+    "meta": {
+      "snapshots": 53,
+      "num_nodes": 129,
+      "num_edges": 2158,
+      "num_features": 8,
+      "signal_type": "Unknown",
+      "temporal_resolution": "Daily"
+    }
+  },
+  "MontevideoBusDatasetLoader": {
+    "params": {
+      "lags": 4
+    },
+    "status": "success",
+    "timings": {
+      "lookup": 1.0328367352485657e-06,
+      "loader_init": 4.360683935228735,
+      "get_dataset": 0.12908226996660233
+    },
+    "meta": {
+      "snapshots": 740,
+      "num_nodes": 675,
+      "num_edges": 690,
+      "num_features": 4,
+      "signal_type": "Unknown",
+      "temporal_resolution": "1 minute (GPS)"
+    }
+  },
+  "MTMDatasetLoader": {
+    "params": {
+      "frames": 16
+    },
+    "status": "success",
+    "timings": {
+      "lookup": 1.4039687812328339e-06,
+      "loader_init": 31.319066687021405,
+      "get_dataset": 1.8953703008592129
+    },
+    "meta": {
+      "snapshots": 14453,
+      "num_nodes": 3,
+      "num_edges": 19,
+      "num_features": 21,
+      "signal_type": "Unknown",
+      "temporal_resolution": "Unknown"
+    }
+  }
+}

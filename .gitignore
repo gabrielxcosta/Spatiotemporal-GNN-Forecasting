@@ -1,0 +1,28 @@
+# Ambientes virtuais
+venv/
+myenv/
+pyg_env/
+.cache/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Diretórios locais
+.idea/
+.vscode/
+
+# Logs e temporários
+*.log
+*.tmp
+*.DS_Store
+
+# Arquivos específicos
+setup.sh
+
+# Ignorar arquivos PEMs em data/
+data/pems*
+
+# Resultados gerados e caches de execução
+results/
+nohup.out
