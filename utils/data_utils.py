@@ -1,13 +1,31 @@
+# -*- coding: utf-8 -*-
+"""
+data_utils.py
+=============
+
+Módulo utilitário para carregar datasets espaço-temporais locais
+compatíveis com PyTorch Geometric Temporal, incluindo:
+- Chickenpox
+- PedalMe
+- WikiMaths
+- EnglandCovid
+- MontevideoBus
+- PeMSBay
+- TwitterTennis (Roland Garros 2017 / US Open 2017)
+"""
+
 import torch
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 
+# Loaders locais
 from loaders.chickenpox_loader import ChickenpoxDatasetLoaderLocal
 from loaders.pedalme_loader import PedalMeDatasetLoaderLocal
 from loaders.wikimaths_loader import WikiMathsDatasetLoaderLocal
 from loaders.englandcovid_loader import EnglandCovidDatasetLoaderLocal
 from loaders.montevideobus_loader import MontevideoBusDatasetLoaderLocal
-from loaders.mtm_loader import MTMDatasetLoaderLocal
+from loaders.pemsbay_loader import PeMSBayDatasetLoaderLocal
+from loaders.twittertennis_loader import TwitterTennisDatasetLoaderLocal
 
 # ======================================================
 # MAPEAMENTO DE DATASETS DISPONÍVEIS (local)
@@ -18,10 +36,14 @@ DATASET_LOADERS = {
     "wikimaths": WikiMathsDatasetLoaderLocal,
     "englandcovid": EnglandCovidDatasetLoaderLocal,
     "montevideobus": MontevideoBusDatasetLoaderLocal,
-    "mtm": MTMDatasetLoaderLocal,
+    "pemsbay": PeMSBayDatasetLoaderLocal,
+    "twittertennis": TwitterTennisDatasetLoaderLocal
 }
 
 
+# ======================================================
+# FUNÇÃO PRINCIPAL DE CARREGAMENTO
+# ======================================================
 def load_dataset(
     name: str,
     lags: int = 8,
@@ -29,20 +51,20 @@ def load_dataset(
     train_ratio: float = 0.7,
     val_ratio: float = 0.15,
     test_ratio: float = 0.15,
+    event_id: str = "uo17",  # 🆕 útil para escolher entre Roland Garros e US Open
 ):
     """
-    Carrega qualquer dataset do PyTorch Geometric Temporal a partir dos arquivos locais.
+    Carrega qualquer dataset local compatível com PyTorch Geometric Temporal.
 
     - Lê datasets de /data/<nome>.json
     - Normaliza todas as features e targets com MinMaxScaler
     - Divide automaticamente em treino, validação e teste conforme proporções passadas
-    - Retorna splits e scaler para inversão posterior
     - 100% offline
 
     Parâmetros
     ----------
     name : str
-        Nome do dataset (e.g. 'chickenpox', 'englandcovid').
+        Nome do dataset (e.g. 'chickenpox', 'twittertennis').
     lags : int
         Número de lags temporais usados como features.
     device : str
@@ -53,6 +75,8 @@ def load_dataset(
         Proporção do conjunto de validação.
     test_ratio : float, default=0.15
         Proporção do conjunto de teste.
+    event_id : str, default='uo17'
+        Identificador do evento ('rg17' ou 'uo17') para o dataset TwitterTennis.
     """
 
     # === Sanidade das proporções ===
@@ -71,26 +95,30 @@ def load_dataset(
         )
 
     # ======================================================
-    # 1. Carrega o dataset local
+    # 1️⃣ Carrega o dataset local
     # ======================================================
-    loader = DATASET_LOADERS[name]()
-    params = loader.get_dataset.__code__.co_varnames
-
-    if "lags" in params:
-        if name == "montevideobus":
-            dataset = loader.get_dataset(lags=lags, target_var="y", feature_vars=["y"])
-        else:
-            dataset = loader.get_dataset(lags=lags)
-    elif "frames" in params:
-        dataset = loader.get_dataset(frames=lags)
+    if name == "twittertennis":
+        loader = DATASET_LOADERS[name](event_id=event_id)
+        dataset = loader.get_dataset()
     else:
-        raise ValueError(f"O loader '{name}' não possui parâmetro temporal reconhecido.")
+        loader = DATASET_LOADERS[name]()
+        params = loader.get_dataset.__code__.co_varnames
+
+        if "lags" in params:
+            if name == "montevideobus":
+                dataset = loader.get_dataset(lags=lags, target_var="y", feature_vars=["y"])
+            else:
+                dataset = loader.get_dataset(lags=lags)
+        elif "frames" in params:
+            dataset = loader.get_dataset(frames=lags)
+        else:
+            raise ValueError(f"O loader '{name}' não possui parâmetro temporal reconhecido.")
 
     dataset_list = list(dataset)
     T = len(dataset_list)
 
     # ======================================================
-    # 2. Divide conforme proporções
+    # 2️⃣ Divide conforme proporções
     # ======================================================
     train_end = int(train_ratio * T)
     val_end = int((train_ratio + val_ratio) * T)
@@ -105,7 +133,7 @@ def load_dataset(
     )
 
     # ======================================================
-    # 3. Normalização (fit no treino, transform no resto)
+    # 3️⃣ Normalização (fit no treino, transform no resto)
     # ======================================================
     all_y = np.concatenate([snap.y.cpu().numpy().reshape(-1, 1) for snap in train_data], axis=0)
     scaler = MinMaxScaler().fit(all_y)
@@ -132,7 +160,7 @@ def load_dataset(
     test_data = normalize_snapshots(test_data)
 
     # ======================================================
-    # 4. Retorna resultados
+    # 4️⃣ Retorna resultados
     # ======================================================
     return (
         dataset_list,

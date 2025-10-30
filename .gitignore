@@ -20,8 +20,11 @@ __pycache__/
 # Arquivos específicos
 setup.sh
 
-# Ignorar arquivos PEMs em data/
-data/pems*
+# Ignorar arquivos PEMs em data/, exceto o PeMS-Bay
+data/pems_AllLA_adj_mat.pkl
+data/pems_AllLA_speed.h5
+data/pems_cali_adj_mat.pkl
+data/pems_cali_speed.h5
 
 # Resultados gerados e caches de execução
 results/
