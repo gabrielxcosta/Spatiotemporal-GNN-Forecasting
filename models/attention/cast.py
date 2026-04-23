@@ -6,11 +6,14 @@ import torch.nn.functional as F
 def edge_dropout(edge_index, edge_weight, p):
     if p <= 0.0:
         return edge_index, edge_weight
+
     E = edge_index.size(1)
     mask = torch.rand(E, device=edge_index.device) > p
     edge_index = edge_index[:, mask]
+
     if edge_weight is not None:
         edge_weight = edge_weight[mask]
+
     return edge_index, edge_weight
 
 
@@ -20,6 +23,7 @@ class SelfAttention(nn.Module):
         assert dim % heads == 0
         self.heads = heads
         self.scale = (dim // heads) ** -0.5
+
         self.q = nn.Linear(dim, dim)
         self.k = nn.Linear(dim, dim)
         self.v = nn.Linear(dim, dim)
@@ -40,7 +44,7 @@ class SelfAttention(nn.Module):
         att = self.drop(att)
 
         out = torch.matmul(att, v)
-        out = out.transpose(1, 2).contiguous().view(B, T, D)
+        out = out.transpose(1, 2).reshape(B, T, D)
         return self.o(out)
 
 
@@ -65,8 +69,8 @@ class TempDisentangler(nn.Module):
             x32 = x.float()
             x_freq = torch.fft.rfft(x32, dim=1)
 
-            freq_w = torch.complex(self.freq_w_real, self.freq_w_imag).to(x_freq.device)
-            freq_b = torch.complex(self.freq_b_real, self.freq_b_imag).to(x_freq.device)
+            freq_w = torch.complex(self.freq_w_real, self.freq_w_imag)
+            freq_b = torch.complex(self.freq_b_real, self.freq_b_imag)
 
             nfreq = min(x_freq.size(1), freq_w.size(0))
             out_freq = torch.zeros_like(x_freq)
@@ -78,9 +82,10 @@ class TempDisentangler(nn.Module):
 
             x_freq_out = torch.fft.irfft(out_freq, n=self.seq_len, dim=1)
 
-        x_freq_out = x_freq_out.to(x_time.dtype)
+        x_freq_out = x_freq_out.to(dtype=x_time.dtype)
         entity = self.drop(x_time + x_freq_out)
         environment = x.mean(dim=1)
+
         return environment, entity
 
 
@@ -93,11 +98,13 @@ class STBlock(nn.Module):
     def forward(self, x, edge_index, edge_weight):
         out = self.lin(x)
         agg = out
+
         src, dst = edge_index
+        ew = edge_weight.view(1, -1, 1)
 
         for _ in range(self.K):
-            msg = torch.zeros_like(agg)
-            msg[:, dst] += agg[:, src] * edge_weight.unsqueeze(0).unsqueeze(-1)
+            msg = agg.new_zeros(agg.shape)
+            msg[:, dst] += agg[:, src] * ew
             agg = F.relu(msg)
 
         return out + agg
@@ -138,23 +145,23 @@ class CaST(nn.Module):
         device = x.device
         edge_index = edge_index.to(device)
 
-        if edge_weight is not None:
-            edge_weight = edge_weight.to(device, dtype=x.dtype)
-        else:
+        if edge_weight is None:
             edge_weight = torch.ones(edge_index.size(1), device=device, dtype=x.dtype)
+        else:
+            edge_weight = edge_weight.to(device=device, dtype=x.dtype)
 
         B, T, N, Fin = x.shape
 
-        x_last = x[:, -1].mean(-1, keepdim=True)
-        x = x.mean(-1)
-        x = x.permute(0, 2, 1).contiguous()
-        x = self.input_proj(x)
+        x_last = x[:, -1].mean(-1, keepdim=True)   # [B, N, 1]
+        x = x.mean(-1)                             # [B, T, N]
+        x = x.permute(0, 2, 1)                     # [B, N, T]
+        x = self.input_proj(x)                     # [B, N, H]
 
-        x_nodes = x.view(B * N, 1, self.hidden_dim).repeat(1, self.seq_len, 1)
+        x_nodes = x.reshape(B * N, 1, self.hidden_dim).expand(-1, self.seq_len, -1)
         env, ent = self.temporal(x_nodes)
 
-        ent = ent.mean(dim=1).view(B, N, self.hidden_dim)
-        env = env.view(B, N, self.hidden_dim)
+        ent = ent.mean(dim=1).reshape(B, N, self.hidden_dim)
+        env = env.reshape(B, N, self.hidden_dim)
         env = self.env_proj(env)
 
         ei, ew = edge_dropout(edge_index, edge_weight, self.edge_drop)
@@ -167,10 +174,11 @@ class CaST(nn.Module):
         ent = self.relu(ent)
         ent = self.drop(ent)
 
-        node_emb = self.node_embed.unsqueeze(0).expand(B, -1, -1).to(device=device, dtype=ent.dtype)
+        node_emb = self.node_embed.unsqueeze(0).expand(B, -1, -1)
         ent = ent + node_emb
         env = env + node_emb
 
         h = torch.cat([env, ent], dim=-1)
         out = self.head(h)
+
         return out.permute(0, 2, 1)
