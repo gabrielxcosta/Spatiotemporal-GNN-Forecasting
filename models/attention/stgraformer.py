@@ -1,7 +1,9 @@
 import math
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 from collections import deque
+from torch.utils.checkpoint import checkpoint
 
 
 def compute_shortest_path(num_nodes, edge_index, max_dist=10):
@@ -45,21 +47,18 @@ class STEmbedding(nn.Module):
         SE = self.node_emb(self.node_ids[:N])
         CE = self.degree_emb(degree[:N].clamp(max=self.degree_emb.num_embeddings - 1))
         TE = self.pe[:T]
-
-        SE = SE.unsqueeze(0).unsqueeze(0)
-        CE = CE.unsqueeze(0).unsqueeze(0)
-        TE = TE.unsqueeze(0).unsqueeze(2)
-
-        return SE + CE + TE
+        return (
+            SE.unsqueeze(0).unsqueeze(0)
+            + CE.unsqueeze(0).unsqueeze(0)
+            + TE.unsqueeze(0).unsqueeze(2)
+        )
 
 
 class GraphormerAttention(nn.Module):
-    def __init__(self, d_model, heads, max_dist=10, neighbor_k=20, chunk_size=16):
+    def __init__(self, d_model, heads, max_dist=10):
         super().__init__()
         self.heads = heads
         self.d_k = d_model // heads
-        self.neighbor_k = neighbor_k
-        self.chunk_size = chunk_size
 
         self.q_proj = nn.Linear(d_model, d_model)
         self.k_proj = nn.Linear(d_model, d_model)
@@ -73,58 +72,33 @@ class GraphormerAttention(nn.Module):
         H = self.heads
         dk = self.d_k
 
-        Q = self.q_proj(x).view(B, T, N, H, dk).permute(0, 3, 1, 2, 4)
-        K = self.k_proj(x).view(B, T, N, H, dk).permute(0, 3, 1, 2, 4)
-        V = self.v_proj(x).view(B, T, N, H, dk).permute(0, 3, 1, 2, 4)
+        q = self.q_proj(x).view(B, T, N, H, dk).permute(0, 1, 3, 2, 4).reshape(B * T, H, N, dk)
+        k = self.k_proj(x).view(B, T, N, H, dk).permute(0, 1, 3, 2, 4).reshape(B * T, H, N, dk)
+        v = self.v_proj(x).view(B, T, N, H, dk).permute(0, 1, 3, 2, 4).reshape(B * T, H, N, dk)
 
-        out = torch.zeros_like(Q)
+        attn_mask = None
+        if spatial_bias_full is not None:
+            attn_mask = spatial_bias_full.unsqueeze(0)
 
-        for start in range(0, N, self.chunk_size):
-            end = min(start + self.chunk_size, N)
+        out = F.scaled_dot_product_attention(
+            q,
+            k,
+            v,
+            attn_mask=attn_mask,
+            dropout_p=0.0,
+            is_causal=False
+        )
 
-            Qi = Q[:, :, :, start:end, :]  # (B,H,T,C,dk)
-
-            # calcula scores completos (ainda necessário)
-            scores = torch.matmul(Qi, K.transpose(-2, -1)) / math.sqrt(dk)
-
-            # bias (apenas modo completo)
-            if spatial_bias_full is not None:
-                sb = spatial_bias_full[:, start:end, :].unsqueeze(0).unsqueeze(2)
-                scores = scores + sb
-
-            # top-k obrigatório (reduz memória após isso)
-            k = min(self.neighbor_k, N)
-            topk_vals, topk_idx = torch.topk(scores, k, dim=-1)
-
-            # gather V
-            V_expand = V.unsqueeze(-3).expand(-1, -1, -1, end-start, -1, -1)
-            V_topk = torch.gather(
-                V_expand,
-                -2,
-                topk_idx.unsqueeze(-1).expand(-1, -1, -1, -1, -1, dk)
-            )
-
-            attn = torch.softmax(topk_vals, dim=-1)
-
-            out[:, :, :, start:end, :] = torch.sum(attn.unsqueeze(-1) * V_topk, dim=-2)
-
-        out = out.permute(0, 2, 3, 1, 4).contiguous().view(B, T, N, D)
+        out = out.view(B, T, H, N, dk).permute(0, 1, 3, 2, 4).contiguous().view(B, T, N, D)
         return self.out_proj(out)
 
 
 class STBlock(nn.Module):
-    def __init__(self, d_model, heads, max_dist=10, neighbor_k=20, chunk_size=16):
+    def __init__(self, d_model, heads, max_dist=10):
         super().__init__()
-        self.attn = GraphormerAttention(
-            d_model=d_model,
-            heads=heads,
-            max_dist=max_dist,
-            neighbor_k=neighbor_k,
-            chunk_size=chunk_size
-        )
+        self.attn = GraphormerAttention(d_model=d_model, heads=heads, max_dist=max_dist)
         self.norm1 = nn.LayerNorm(d_model)
         self.norm2 = nn.LayerNorm(d_model)
-
         self.ff = nn.Sequential(
             nn.Linear(d_model, d_model * 2),
             nn.ReLU(),
@@ -147,9 +121,8 @@ class STGraphormer(nn.Module):
         layers=3,
         horizon=1,
         max_dist=10,
-        neighbor_k=20,
-        chunk_size=16,
-        lite_threshold=500
+        lite_threshold=500,
+        use_checkpoint=True
     ):
         super().__init__()
 
@@ -159,6 +132,7 @@ class STGraphormer(nn.Module):
         self.num_nodes = num_nodes
         self.max_dist = max_dist
         self.lite_threshold = lite_threshold
+        self.use_checkpoint = use_checkpoint
 
         self._cached_degree = None
         self._cached_dist = None
@@ -168,9 +142,7 @@ class STGraphormer(nn.Module):
             STBlock(
                 d_model=d_model,
                 heads=heads,
-                max_dist=max_dist,
-                neighbor_k=neighbor_k,
-                chunk_size=chunk_size
+                max_dist=max_dist
             )
             for _ in range(layers)
         ])
@@ -181,13 +153,16 @@ class STGraphormer(nn.Module):
         if self._cached_dist is None:
             dist = compute_shortest_path(self.num_nodes, edge_index, self.max_dist).to(device)
             degree = torch.bincount(edge_index[0], minlength=self.num_nodes).to(device)
-
-            spatial_bias = self.layers[0].attn.spatial_bias(dist)
-            spatial_bias = spatial_bias.permute(2, 0, 1).contiguous()
+            spatial_bias = self.layers[0].attn.spatial_bias(dist).permute(2, 0, 1).contiguous()
 
             self._cached_dist = dist
             self._cached_degree = degree
-            self._cached_spatial_bias = spatial_bias
+            self._cached_spatial_bias = spatial_bias.detach()
+
+    def _run_layer(self, layer, x, spatial_bias):
+        if self.use_checkpoint and self.training:
+            return checkpoint(layer, x, spatial_bias, use_reentrant=False)
+        return layer(x, spatial_bias)
 
     def forward(self, x, edge_index=None, edge_weight=None):
         B, T, N, F = x.shape
@@ -202,16 +177,16 @@ class STGraphormer(nn.Module):
         if lite_mode:
             dummy_degree = torch.zeros(N, device=x.device, dtype=torch.long)
             x = x + self.ste(B, T, N, x.device, dummy_degree)
+            spatial_bias = None
         else:
             x = x + self.ste(B, T, N, x.device, self._cached_degree)
+            spatial_bias = self._cached_spatial_bias
+            if spatial_bias is not None:
+                spatial_bias = spatial_bias.detach()
 
         for layer in self.layers:
-            if lite_mode:
-                x = layer(x, None)
-            else:
-                x = layer(x, self._cached_spatial_bias)
+            x = self._run_layer(layer, x, spatial_bias)
 
         x = x[:, -1]
         out = self.output_proj(x)
-
         return out.permute(0, 2, 1)
