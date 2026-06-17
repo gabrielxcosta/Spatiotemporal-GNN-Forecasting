@@ -185,15 +185,14 @@ To ensure reproducibility, the experiments are controlled by:
 * shared evaluation metrics;
 * consistent model grouping by temporal module.
 
-## Repository Status
+## Authors
 
-This repository is under active development as part of a master's dissertation and related scientific publications. File names and experiment scripts may be reorganized as the project evolves.
+Gabriel F. Costa¹, Vander L. S. Freitas¹, Eduardo J. S. Luz¹
 
-## Author
-
-Gabriel F. Costa
-Postgraduate Program in Computer Science
-Federal University of Ouro Preto
-Ouro Preto, Minas Gerais, Brazil
+1 Federal University of Ouro Preto (UFOP)
+CEP: 35400-000 -- Ouro Preto -- MG -- Brazil
+PPGCC - Postgraduate Program in Computer Science
+secretaria.ppgcc@ufop.edu.br
+http://www3.decom.ufop.br/pos/inicio/
 
 Repository: https://github.com/gabrielxcosta/Spatiotemporal-GNN-Forecasting
