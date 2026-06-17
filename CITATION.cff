@@ -1,0 +1,41 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite it using the metadata below."
+
+title: "Spatiotemporal GNN Forecasting"
+repository-code: "https://github.com/gabrielxcosta/Spatiotemporal-GNN-Forecasting"
+url: "https://github.com/gabrielxcosta/Spatiotemporal-GNN-Forecasting"
+license: "MIT"
+
+authors:
+  - family-names: "Costa"
+    given-names: "Gabriel F."
+    orcid: "https://orcid.org/0009-0001-2714-3365"
+    affiliation: "Federal University of Ouro Preto"
+
+keywords:
+  - "spatio-temporal graph neural networks"
+  - "time series forecasting"
+  - "graph neural networks"
+  - "graph spectral analysis"
+  - "STGNN"
+
+preferred-citation:
+  type: conference-paper
+  title: "Benchmarking Spatio-Temporal Graph Neural Networks for Time Series Forecasting Across Heterogeneous Graph Domains"
+  authors:
+    - family-names: "Costa"
+      given-names: "Gabriel F."
+      orcid: "https://orcid.org/0009-0001-2714-3365"
+      affiliation: "Federal University of Ouro Preto"
+    - family-names: "Luz"
+      given-names: "Eduardo J. S."
+      orcid: "https://orcid.org/0000-0001-5249-1559"
+      affiliation: "Federal University of Ouro Preto"
+    - family-names: "Freitas"
+      given-names: "Vander L. S."
+      orcid: "https://orcid.org/0000-0001-7989-0816"
+      affiliation: "Federal University of Ouro Preto"
+  year: 2026
+  institution:
+    name: "Federal University of Ouro Preto"
+  notes: "Repository associated with a master's dissertation and a paper planned for BRACIS 2026."
