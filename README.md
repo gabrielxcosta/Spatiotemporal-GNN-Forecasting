@@ -189,10 +189,12 @@ To ensure reproducibility, the experiments are controlled by:
 
 Gabriel F. Costa¹, Vander L. S. Freitas¹, Eduardo J. S. Luz¹
 
-1 Federal University of Ouro Preto (UFOP)
-CEP: 35400-000 -- Ouro Preto -- MG -- Brazil
-PPGCC - Postgraduate Program in Computer Science
-secretaria.ppgcc@ufop.edu.br
-http://www3.decom.ufop.br/pos/inicio/
+\institute{
+Federal University of Ouro Preto (UFOP)\\
+CEP: 35400-000 -- Ouro Preto -- MG -- Brazil\\
+PPGCC -- Postgraduate Program in Computer Science\\
+\email{secretaria.ppgcc@ufop.edu.br}\\
+\url{http://www3.decom.ufop.br/pos/inicio/}
+}
 
 Repository: https://github.com/gabrielxcosta/Spatiotemporal-GNN-Forecasting
