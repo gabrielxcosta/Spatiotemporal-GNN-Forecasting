@@ -179,7 +179,7 @@ Additional scripts may be used for dataset verification, graph export, result pr
 To ensure reproducibility, the experiments are controlled by:
 
 * fixed chronological data splits;
-* fixed random seeds;
+* fixed seeds;
 * standardized preprocessing;
 * common training protocol;
 * shared evaluation metrics;
