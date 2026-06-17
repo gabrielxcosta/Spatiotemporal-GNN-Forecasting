@@ -196,3 +196,11 @@ secretaria.ppgcc@ufop.edu.br<br>
 http://www3.decom.ufop.br/pos/inicio/
 
 Repository: https://github.com/gabrielxcosta/Spatiotemporal-GNN-Forecasting
+
+## License
+
+This repository is licensed under the MIT License. See the `LICENSE` file for details.
+
+## Citation
+
+If you use this repository, please cite it using the metadata available in `CITATION.cff`.
