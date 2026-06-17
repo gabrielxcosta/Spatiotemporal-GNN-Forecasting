@@ -2,7 +2,7 @@
 
 Repository for the master's research project on benchmarking Spatio-Temporal Graph Neural Networks (STGNNs) for node-level time series forecasting over heterogeneous graph domains.
 
-This repository supports the experiments developed for a master's dissertation in Computer Science at the Federal University of Ouro Preto (UFOP). The project also serves as the code base for a paper planned for BRACIS 2026 and for poster/oral presentations at Enredando 2026 and Encontro de Saberes 2026 at UFOP.
+This repository supports the experiments developed for a master's dissertation in Computer Science at the Federal University of Ouro Preto (UFOP). The project also serves as the code base for a paper for BRACIS 2026 and for poster/oral presentations at Enredando 2026 and Encontro de Saberes 2026 at UFOP.
 
 ## Overview
 
