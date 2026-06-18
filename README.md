@@ -195,8 +195,6 @@ PPGCC -- Postgraduate Program in Computer Science<br>
 secretaria.ppgcc@ufop.edu.br<br>
 http://www3.decom.ufop.br/pos/inicio/
 
-Repository: https://github.com/gabrielxcosta/Spatiotemporal-GNN-Forecasting
-
 ## License
 
 This repository is licensed under the MIT License. See the `LICENSE` file for details.
