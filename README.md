@@ -128,7 +128,7 @@ The experiments follow a unified setup:
 * sliding-window forecasting formulation;
 * multiple temporal context lengths;
 * multiple forecasting horizons;
-* multiple random seeds;
+* multiple seeds;
 * evaluation with RMSE, MAE, MSE, and R²;
 * comparison between architectural families;
 * input projection analysis;
