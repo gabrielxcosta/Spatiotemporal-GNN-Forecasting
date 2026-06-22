@@ -201,7 +201,7 @@ To ensure reproducibility, the experiments are controlled by:
 
 ## Authors
 
-Gabriel F. Costa¹, Vander L. S. Freitas¹, Eduardo J. S. Luz¹
+Gabriel F. Costa¹, Eduardo J. S. Luz¹, Vander L. S. Freitas¹
 
 ¹ Federal University of Ouro Preto (UFOP)
 CEP: 35400-000 -- Ouro Preto -- MG -- Brazil
