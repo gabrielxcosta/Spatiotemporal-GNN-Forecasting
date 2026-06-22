@@ -2,7 +2,7 @@
 
 Repository for the master's research project on benchmarking Spatio-Temporal Graph Neural Networks (STGNNs) for node-level time series forecasting over heterogeneous graph domains.
 
-This repository supports the experiments developed for a master's dissertation in Computer Science at the Federal University of Ouro Preto (UFOP). The project also serves as the code base for a paper for BRACIS 2026 and for poster/oral presentations at Enredando 2026 and Encontro de Saberes 2026 at UFOP.
+This repository supports the experiments developed for a master's dissertation in Computer Science at the Federal University of Ouro Preto (UFOP). The project also serves as the code base for a paper submitted to BRACIS 2026 and for poster/oral presentations at Enredando 2026 and Encontro de Saberes 2026 at UFOP.
 
 ## Overview
 
@@ -15,6 +15,18 @@ The architectures are organized according to the temporal module used by each mo
 * recurrent models.
 
 The experiments include different datasets, temporal contexts, forecasting horizons, random seeds, input projection settings, computational time analysis, result aggregation, and graph spectral analysis.
+
+## Frameworks and Dependencies
+
+This repository is built upon the PyTorch ecosystem for deep learning and graph machine learning.
+
+In particular, it makes extensive use of:
+
+* PyTorch;
+* PyTorch Geometric;
+* PyTorch Geometric Temporal.
+
+The datasets, loaders, and several baseline implementations are derived from or inspired by the PyTorch Geometric Temporal framework, which provides a unified environment for spatio-temporal graph learning research and reproducible benchmarking.
 
 ## Repository Structure
 
@@ -76,7 +88,7 @@ Spatiotemporal-GNN-Forecasting/
 
 The `models/` directory is divided according to the temporal modeling mechanism used by each architecture.
 
-### Attention-based models
+### Attention-based Models
 
 Located in:
 
@@ -86,7 +98,7 @@ models/attention/
 
 These models use attention or transformer-based mechanisms to capture temporal or spatio-temporal dependencies. This family includes architectures designed to model adaptive and non-local interactions over time, nodes, or both.
 
-### Convolutional models
+### Convolutional Models
 
 Located in:
 
@@ -96,7 +108,7 @@ models/convolutional/
 
 These models use temporal convolutions, graph convolutions, gated convolutions, dilated convolutions, or adaptive graph convolutional mechanisms. This family represents architectures based mainly on local filtering and convolutional propagation.
 
-### Recurrent models
+### Recurrent Models
 
 Located in:
 
@@ -117,6 +129,8 @@ The repository includes loaders and data files for multiple graph-based time ser
 * PedalMe London;
 * PeMS-Bay;
 * Twitter Tennis datasets.
+
+Most datasets are obtained from or adapted from the PyTorch Geometric Temporal benchmark collection, ensuring reproducibility and comparability with prior STGNN studies.
 
 The main experiments reported in the dissertation and paper focus on a controlled benchmark over selected heterogeneous datasets.
 
@@ -139,7 +153,7 @@ The `main.py` file is the main entry point for running the controlled experiment
 
 ## Spectral Analysis
 
-The spectral analysis is computed from the graph structure and graph signals. It is not separated by forecasting regime because the graph spectrum characterizes the dataset/graph itself, not a specific Short-Mid or Long-Range configuration.
+The spectral analysis is computed from the graph structure and graph signals. It is not separated by forecasting regime because the graph spectrum characterizes the dataset itself rather than a specific Short-Mid or Long-Range forecasting configuration.
 
 The spectral analysis is used to describe properties such as low-, mid-, and high-frequency energy and Dirichlet energy. These descriptors are then compared with the behavior of different STGNN families.
 
@@ -189,10 +203,10 @@ To ensure reproducibility, the experiments are controlled by:
 
 Gabriel F. Costa¹, Vander L. S. Freitas¹, Eduardo J. S. Luz¹
 
-¹ Federal University of Ouro Preto (UFOP)<br>
-CEP: 35400-000 -- Ouro Preto -- MG -- Brazil<br>
-PPGCC -- Postgraduate Program in Computer Science<br>
-secretaria.ppgcc@ufop.edu.br<br>
+¹ Federal University of Ouro Preto (UFOP)
+CEP: 35400-000 -- Ouro Preto -- MG -- Brazil
+PPGCC -- Postgraduate Program in Computer Science
+[secretaria.ppgcc@ufop.edu.br](mailto:secretaria.ppgcc@ufop.edu.br)
 http://www3.decom.ufop.br/pos/inicio/
 
 ## License
@@ -201,4 +215,26 @@ This repository is licensed under the MIT License. See the `LICENSE` file for de
 
 ## Citation
 
-If you use this repository, please cite it using the metadata available in `CITATION.cff`.
+If you use this repository, please cite both this repository and the PyTorch Geometric Temporal framework.
+
+### This Repository
+
+Citation metadata is available in the `CITATION.cff` file.
+
+### PyTorch Geometric Temporal
+
+```bibtex
+@inproceedings{rozemberczki2021pytorch,
+  title={PyTorch Geometric Temporal: Spatiotemporal Signal Processing with Neural Machine Learning Models},
+  author={Rozemberczki, Benedek and Davies, Ryan and Sarkar, Rik and Sutton, Charles},
+  booktitle={Proceedings of the 30th ACM International Conference on Information and Knowledge Management},
+  pages={4564--4573},
+  year={2021},
+  doi={10.1145/3459637.3482014}
+}
+```
+
+### Acknowledgments
+
+This work builds upon the PyTorch Geometric Temporal framework and its benchmark datasets. We acknowledge the contributions of the PyTorch Geometric and PyTorch Geometric Temporal communities for providing open-source tools that support reproducible research in spatio-temporal graph learning.
+
