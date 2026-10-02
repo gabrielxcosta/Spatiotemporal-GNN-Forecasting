@@ -3,9 +3,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
-# -------------------------
-# DropEdge
-# -------------------------
 def drop_edge(edge_index, edge_weight=None, drop_prob=0.1):
     if edge_index is None:
         return edge_index, edge_weight
@@ -20,17 +17,15 @@ def drop_edge(edge_index, edge_weight=None, drop_prob=0.1):
     return edge_index, edge_weight
 
 
-# -------------------------
-# Attention
-# -------------------------
 class AttentionLayer(nn.Module):
     def __init__(self, dim, heads=4):
         super().__init__()
-        if heads < 1:
-            raise ValueError("num_heads precisa ser maior que zero")
-        if dim % heads != 0:
+        if heads < 1 or dim % heads != 0:
             raise ValueError(
-                f"model_dim ({dim}) precisa ser divisível por num_heads ({heads})"
+                f"A dimensão da atenção ({dim}) precisa ser divisível por "
+                f"num_heads ({heads}), que deve ser positivo. "
+                "Sem projeção de entrada, a dimensão é input_dim + "
+                "spatial_embedding_dim + adaptive_embedding_dim."
             )
 
         self.heads = heads
@@ -54,9 +49,6 @@ class AttentionLayer(nn.Module):
         return self.o(out)
 
 
-# -------------------------
-# Temporal Block
-# -------------------------
 class TemporalBlock(nn.Module):
     def __init__(self, dim, heads, dropout):
         super().__init__()
@@ -76,9 +68,6 @@ class TemporalBlock(nn.Module):
         return x
 
 
-# -------------------------
-# Top-K Spatial (SEM NxN)
-# -------------------------
 class TopKSpatial(nn.Module):
     def __init__(self, k=32):
         super().__init__()
@@ -103,9 +92,6 @@ class TopKSpatial(nn.Module):
         return out
 
 
-# -------------------------
-# STAEformer
-# -------------------------
 class STAEformer(nn.Module):
     def __init__(
         self,
@@ -134,19 +120,10 @@ class STAEformer(nn.Module):
         self.edge_drop = edge_drop
         self.lite_threshold = lite_threshold
 
-        hidden = input_embedding_dim
-        model_dim = hidden + spatial_embedding_dim + adaptive_embedding_dim
-        if model_dim % num_heads != 0:
-            raise ValueError(
-                "A soma input_embedding_dim + spatial_embedding_dim + "
-                f"adaptive_embedding_dim ({model_dim}) precisa ser divisível "
-                f"por num_heads ({num_heads})"
-            )
-
-        self.input_proj = nn.Linear(input_dim, hidden)
-
         self.node_emb = nn.Parameter(torch.randn(num_nodes, spatial_embedding_dim))
         self.adaptive_emb = nn.Parameter(torch.randn(in_steps, num_nodes, adaptive_embedding_dim))
+
+        model_dim = input_dim + spatial_embedding_dim + adaptive_embedding_dim
 
         self.temporal_layers = nn.ModuleList([
             TemporalBlock(model_dim, num_heads, dropout)
@@ -168,14 +145,11 @@ class STAEformer(nn.Module):
 
         edge_index, edge_weight = drop_edge(edge_index, edge_weight, self.edge_drop)
 
-        x = self.input_proj(x)
-
         spatial = self.node_emb.unsqueeze(0).unsqueeze(0).expand(B, T, N, -1)
         adaptive = self.adaptive_emb.unsqueeze(0).expand(B, T, N, -1)
 
         x = torch.cat([x, spatial, adaptive], dim=-1)
 
-        # Spatio-temporal block
         res = x
         for layer in self.temporal_layers:
             x = layer(x)
@@ -185,14 +159,12 @@ class STAEformer(nn.Module):
 
         x = self.ln1(x + res)
 
-        # Residual com último snapshot
         last = x[:, -1:].expand(-1, T, -1, -1)
         x = self.ln2(x + last)
 
         x = self.relu(x)
         x = self.drop(x)
 
-        # Forecast head
         x = x[:, -1]
 
         out = self.head(x)
