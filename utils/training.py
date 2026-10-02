@@ -17,6 +17,7 @@ def train_epoch(model, loader, optimizer, device, edge_index=None, edge_weight=N
     n = 0
     did_optimizer_step = False
 
+    masked_targets = getattr(loader.dataset, "masked_targets", False)
     uses_graph = model_uses_graph(model)
 
     if uses_graph:
@@ -30,6 +31,9 @@ def train_epoch(model, loader, optimizer, device, edge_index=None, edge_weight=N
         X = X.to(device)
         y = y.to(device)
 
+        observed = torch.isfinite(y) if masked_targets else None
+        if masked_targets and not observed.any():
+            continue  # No supervised targets: do not update parameters.
         optimizer.zero_grad(set_to_none=True)
 
         with torch.amp.autocast("cuda", enabled=use_amp):
@@ -38,7 +42,7 @@ def train_epoch(model, loader, optimizer, device, edge_index=None, edge_weight=N
             else:
                 out = model(X)
 
-            loss = F.mse_loss(out, y)
+            loss = F.mse_loss(out[observed], y[observed]) if masked_targets else F.mse_loss(out, y)
 
         if use_amp:
             scaler.scale(loss).backward()
@@ -55,10 +59,11 @@ def train_epoch(model, loader, optimizer, device, edge_index=None, edge_weight=N
             optimizer.step()
             did_optimizer_step = True
 
-        total += loss.item()
-        n += 1
+        weight = int(observed.sum()) if masked_targets else 1
+        total += loss.item() * weight
+        n += weight
 
-    return total / max(1, n), did_optimizer_step
+    return (total / n if n else float("nan")), did_optimizer_step
 
 
 @torch.no_grad()
@@ -71,6 +76,7 @@ def evaluate(model, loader, device, edge_index=None, edge_weight=None):
     preds = []
     trues = []
 
+    masked_targets = getattr(loader.dataset, "masked_targets", False)
     uses_graph = model_uses_graph(model)
 
     if uses_graph:
@@ -86,12 +92,17 @@ def evaluate(model, loader, device, edge_index=None, edge_weight=None):
         else:
             out = model(X)
 
-        loss = F.mse_loss(out, y)
-
-        total += loss.item()
-        n += 1
+        if masked_targets:
+            observed = torch.isfinite(y)
+            count = int(observed.sum())
+            if count:
+                total += F.mse_loss(out[observed], y[observed]).item() * count
+                n += count
+        else:
+            total += F.mse_loss(out, y).item()
+            n += 1
 
         preds.append(out.detach().cpu().numpy())
         trues.append(y.detach().cpu().numpy())
 
-    return total / max(1, n), np.concatenate(preds), np.concatenate(trues)
+    return (total / n if n else float("nan")), np.concatenate(preds), np.concatenate(trues)
